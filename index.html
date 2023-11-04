@@ -1,0 +1,20 @@
+from fastapi import FastAPI
+from threading import Thread
+
+app = FastAPI()
+
+def drowsiness_detection():
+    # Insert the code for drowsiness detection here
+    # ...
+
+@app.get("/")
+def read_root():
+    with open("index.html", "r") as file:
+        html_content = file.read()
+    return HTMLResponse(content=html_content, status_code=200)
+
+@app.get("/start_detection")
+def start_detection():
+    t = Thread(target=drowsiness_detection)
+    t.start()
+    return {"message": "Drowsiness detection started."}
